@@ -1,0 +1,124 @@
+
+<!DOCTYPE html> 
+<html> 
+	<head> 
+<link rel="icon" type="image/ico" href="favicon.ico">
+	<title>Travel Time Calculator</title> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.1.1.min.css" />
+	<link rel="stylesheet" type="text/css" href="themes/TTC.css" />
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.mobile-1.1.1.min.js"></script>
+</head> 
+<body> 
+
+
+<!-- inicio pagina bienvenida -->
+<div data-role="page" id="welcome" data-title="TravelTimeCalc" data-theme="a" data-dom-cache="false" >
+	<div data-role="header" data-position="fixed" data-theme="d">
+		<h1>Travel time calculator</h1>
+	</div><!-- /header -->
+
+	<div id="content_welcome" data-role="content" >	
+		<div class="ui-grid-a">
+			<div class="ui-block-a" >
+				<div class="ui-bar ui-bar-c" >
+					<label for="vel1">km/h:</label>
+					<input type="number" name="vel1" id="vel1" value=""  />
+					<p><input id="V1ms" disabled="disabled" ></input></p>
+					<p><input id="T1min" disabled="disabled" ></input></p>
+				</div>
+			</div>
+			<div class="ui-block-b" >
+				<div class="ui-bar ui-bar-c" >
+					<label for="vel2">km/h:</label>
+					<input type="number" name="vel2" id="vel2" value=""  />
+					<p><input id="V2ms" disabled="disabled" ></input></p>
+					<p><input id="T2min" disabled="disabled" ></input></p>
+				</div>
+			</div>
+		</div>
+		<div class="ui-grid-a">
+			<div class="ui-block-a" >
+				<div class="ui-bar ui-bar-b" >
+					<label for="dist">km:</label>
+					<input type="number" name="dist" id="dist" value=""  />
+				</div>
+			</div>
+			<div class="ui-block-b" >
+				<div class="ui-bar ui-bar-a" >
+					<label for="dif">Diferencia:</label>
+					<input id="dif" disabled="disabled" ></input>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			$("#vel1").change(function() { Calcula(); });
+			$("#vel1").blur(function() { Calcula(); });
+
+			$("#vel2").change(function() { Calcula(); });
+			$("#vel2").blur(function() { Calcula(); });
+
+			$("#dist").change(function() { Calcula(); });
+			$("#dist").blur(function() { Calcula(); });
+
+		</script>
+			
+		<script>
+		function Calcula(){	
+			var vel1=$("#vel1").val(); // en km/h
+			var vel2=$("#vel2").val(); // en km/h
+			var t1, t2, dist, calculo;
+			// velocidad 1 en m/s
+			calculo = Math.round(vel1/3.6);
+			$("#V1ms").val(calculo.toString() + " m/s");
+			console.log(calculo.toString() + " m/s");
+			// velocidad 2 en m/s
+			calculo = Math.round(vel2/3.6);
+			$("#V2ms").val(calculo.toString() + " m/s");
+			// distancia en km
+			dist=$("#dist").val();
+			// calculo tiempo a vel 2 en horas
+			if (vel2 != 0) {
+				t2 = Math.round(dist/vel2*60);
+			}
+			else { t2 = 0}
+			$("#T2min").val(t2.toString() + " min");
+			// calculo tiempo a vel 1 en horas
+			if (vel1 != 0){
+				t1 = Math.round(dist/vel1*60);
+			}
+			else { t1 = 0}
+			$("#T1min").val(t1.toString() + " min");
+			// calculo diferencia en tiempo en minutos
+			var dif = Math.round((t2 - t1));
+			$("#dif").val(dif.toString() + " min");
+		}	
+		</script>
+	</div><!-- /content -->
+	
+	<div data-role="footer" data-position="fixed" data-theme="d">
+		<a id="botonAcercade" href="#acercade" data-mini="false" data-role="button" data-rel="dialog" data-theme="d" data-icon="grid" data-inline="false">@ARM 2012</a>
+<!-- 		<h4>@ARM 2012</h4> -->
+	</div><!-- /footer -->
+</div><!-- /page -->
+<!-- fin pagina bienvenida -->
+
+
+<!-- pagina Acerca de -->
+<div data-role="page" id="acercade" data-title="Atención">
+	<div data-role="content" data-theme="a">
+		<h4>Bienvenido al calculador de tiempos de viaje.</h4><br />
+		Introduce dos velocidades y la distancia a recorrer y verás la diferencia en tiempo.<br /><br />
+		La velocidad en m/s te da una mejor idea de la velocidad "a pie". <br /><br />
+		¿Vale la pena correr más?<br /><br />
+    	<a href="#" data-role="button" data-inline="false" data-rel="back">Volver</a>
+	</div>
+</div>
+<!-- pagina Acerca de -->
+
+
+</body>
+</html>
